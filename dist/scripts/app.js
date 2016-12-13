@@ -1,22 +1,34 @@
 var app = angular.module('myPomodoro', []);
 
 app.controller('pomodoroCtrl', function($scope, $interval) {
-    $scope.firstName= "John";
-    $scope.lastName= "Doe";
-    $scope.countDown = 1500;
+    $scope.countDown = 1500; // 1500s = 25 min
+
+    var stop;
+    var playing = false;
 
     $scope.startPomodoro = function(){
-    $interval(function(){
-      if ($scope.countDown === 0){
-        $scope.stopPomodoro();
-        } else {
-        console.log($scope.countDown--)
-      }},1000);
-    }
+      if (angular.isDefined(stop)) return;
+      stop = $interval(function(){
+        if ($scope.countDown === 0){
+          $scope.stopPomodoro();
+          } else {
+          console.log($scope.countDown--)
+        }},100);
+        playing = true;
+      };
 
     $scope.stopPomodoro = function(){
-      $interval.cancel()
-    }
+      if (angular.isDefined(stop)) {
+        $interval.cancel(stop);
+        stop = undefined;
+        }
+        playing = true;
+      };
+
+    $scope.resetPomodoro = function(){
+      $scope.countDown = 1500;
+      };
+
     }).filter('secondsToDateTime', [function() {
       return function(seconds) {
           return new Date(1970, 0, 1).setSeconds(seconds);

@@ -25,10 +25,10 @@
           <div ng-app="myPomodoro" ng-controller = 'pomodoroCtrl'>
             <!--<button ng-click="count = count + 1" ng-init="count=0" class="btn btn-danger">Pomodoro!</button>
             <span>Count: {{count}}</span>-->
-            Countdown: <span>{{countDown | secondsToDateTime | date:'mm:ss'}}</span>
-            <button data-ng-click="startPomodoro()" class="btn btn-danger">Pomodoro!</button>
-            <button data-ng-click="stopPomodoro()" class="btn btn-danger">Stop Pomodoro!</button>
-
+            Countdown: <span>{{countDown | secondsToDateTime | date:'mm:ss'}}</span><br />
+            <button ng-click="startPomodoro()" class="btn btn-danger">Start Pomodoro!</button>
+            <button ng-click="stopPomodoro()" class="btn btn-danger">Stop Pomodoro!</button>
+            <button ng-click="resetPomodoro()" class="btn btn-danger">Reset Pomodoro!</button>
         </div>
       </div>
   </div>
