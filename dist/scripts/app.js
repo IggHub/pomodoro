@@ -7,9 +7,23 @@ app.controller('pomodoroCtrl', function($scope, $interval) {
     $scope.workCounter = 0;
     $scope.hideStart = false;
 
+    var pomodoroBell = new buzz.sound( "/assets/sounds/door-bell.mp3", {
+      preload: true
+    });
+    var initializing = true;
     var onBreak = false; //initially onBreak will be false
     var playing = false;
+    $scope.bellTrigger = false;
     var stop;
+
+    $scope.$watch('bellTrigger', function(newVal, oldVal) {
+      if(newVal === oldVal) {
+        return;
+      } else {
+      pomodoroBell.play();
+      $scope.bellTrigger = false;
+      }
+    });
 
     $scope.startPomodoro = function(){
       if (angular.isDefined(stop)) return;
@@ -20,8 +34,9 @@ app.controller('pomodoroCtrl', function($scope, $interval) {
           $scope.workCounter += 1;
           $scope.resetPomodoro();
           $scope.hideStart = false;
+          $scope.bellTrigger = true;
           } else {
-          console.log($scope.countDownPomodoro--)
+            return $scope.countDownPomodoro--;
         }},1000);
       };
 
@@ -33,9 +48,10 @@ app.controller('pomodoroCtrl', function($scope, $interval) {
           $scope.onBreak = false;
           $scope.resetBreak();
           $scope.hideStart=false;
+          $scope.bellTrigger = true;
           //$scope.playing = true;
           } else {
-          console.log($scope.countDownBreak--)
+            return $scope.countDownBreak--;
         }},1000);
       };
 
@@ -49,8 +65,9 @@ app.controller('pomodoroCtrl', function($scope, $interval) {
           $scope.hideStart = false;
           $scope.workCounter = 0;
           $scope.onBreak = false;
+          $scope.bellTrigger = true;
           } else {
-          console.log($scope.countDownLongBreak--)
+            return $scope.countDownLongBreak--;
         }},1000);
       };
 

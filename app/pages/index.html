@@ -6,10 +6,8 @@
     <link rel="stylesheet" href="/styles/style.css">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- angular -->
@@ -23,8 +21,7 @@
       <div class="row vertical-center-row">
           <!-- app -->
         <div ng-app="myPomodoro" ng-controller = 'pomodoroCtrl'>
-            <!--<button ng-click="count = count + 1" ng-init="count=0" class="btn btn-danger">Pomodoro!</button>
-            <span>Count: {{count}}</span>-->
+            
           <div>
             Work counter {{workCounter}} <br />
             Countdown pomo: <span>{{countDownPomodoro | secondsToDateTime | date:'mm:ss'}}</span><br />
@@ -45,25 +42,13 @@
             <button ng-click="stopLongBreak(); hideStart=false;" class="btn btn-danger" ng-show="workCounter == 4 && hideStart">Stop Long Break!</button>
             <button ng-click="resetLongBreak()" class="btn btn-danger" ng-show="workCounter == 4">Reset Long Break!</button>
           </div>
-<!--
-          in the beginning:
-          onBreak, playing = false
-          shows start pomodoro and reset pomodoro
-          Start pomodoro shows when onBreak and playing = false; when start pomodoro, playing = true
-          resetPomodoro shows when onBreak and playing = false
-          Stop pomodoro when playing = true and onBreak = false
--->
-          <div ng-show="">
-            Countdown: <span>{{countDownBreak | secondsToDateTime | date:'mm:ss'}}</span><br />
-            <button ng-click="startPomodoro(); playing=true;" class="btn btn-danger" ng-show="!playing">Start Break!</button>
-            <button ng-click="stopPomodoro(); playing=false;" class="btn btn-danger" ng-show="playing">Stop Break!</button>
-            <button ng-click="resetPomodoro()" class="btn btn-danger">Reset Break!</button>
-          </div>
+
         </div>
       </div>
   </div>
 
     <script src="/scripts/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.1.0/buzz.min.js"></script>
 </body>
 
 </html>
