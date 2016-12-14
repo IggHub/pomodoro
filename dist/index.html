@@ -22,13 +22,44 @@
   <div class="container container-table">
       <div class="row vertical-center-row">
           <!-- app -->
-          <div ng-app="myPomodoro" ng-controller = 'pomodoroCtrl'>
+        <div ng-app="myPomodoro" ng-controller = 'pomodoroCtrl'>
             <!--<button ng-click="count = count + 1" ng-init="count=0" class="btn btn-danger">Pomodoro!</button>
             <span>Count: {{count}}</span>-->
-            Countdown: <span>{{countDown | secondsToDateTime | date:'mm:ss'}}</span><br />
-            <button ng-click="startPomodoro()" class="btn btn-danger">Start Pomodoro!</button>
-            <button ng-click="stopPomodoro()" class="btn btn-danger">Stop Pomodoro!</button>
-            <button ng-click="resetPomodoro()" class="btn btn-danger">Reset Pomodoro!</button>
+          <div>
+            Work counter {{workCounter}} <br />
+            Countdown pomo: <span>{{countDownPomodoro | secondsToDateTime | date:'mm:ss'}}</span><br />
+            Countdown break: <span>{{countDownBreak | secondsToDateTime | date:'mm:ss'}}</span><br />
+            Countdown long break: <span>{{countDownLongBreak | secondsToDateTime | date:'mm:ss'}}</span><br />
+
+            <button ng-click="startPomodoro(); hideStart=true;" class="btn btn-danger" ng-show="!onBreak && !hideStart">Start Pomodoro!</button>
+            <button ng-click="stopPomodoro(); hideStart=false;" class="btn btn-danger" ng-show="!onBreak && hideStart">Stop Pomodoro!</button>
+            <button ng-click="resetPomodoro()" class="btn btn-danger" ng-show="!onBreak">Reset Pomodoro!</button>
+
+            <br />
+
+            <button ng-click="startBreak(); hideStart=true;" class="btn btn-danger" ng-show="onBreak && !hideStart">Start Break!</button>
+            <button ng-click="stopBreak(); hideStart=false;" class="btn btn-danger" ng-show="onBreak && hideStart">Stop Break!</button>
+            <button ng-click="resetBreak()" class="btn btn-danger" ng-show="onBreak">Reset Break!</button>
+
+            <br />
+            <!--<button ng-click="startLongBreak(); playing=false;" class="btn btn-danger" ng-show="(workCounter%4==0 && workCounter > 0)">Start Long Break!</button>-->
+            <!--<button ng-click="stopLongBreak();" class="btn btn-danger">Stop Long Break!</button>-->
+            <!--<button ng-click="resetLongBreak()" class="btn btn-danger">Reset Long Break!</button>-->
+          </div>
+<!--
+          in the beginning:
+          onBreak, playing = false
+          shows start pomodoro and reset pomodoro
+          Start pomodoro shows when onBreak and playing = false; when start pomodoro, playing = true
+          resetPomodoro shows when onBreak and playing = false
+          Stop pomodoro when playing = true and onBreak = false
+-->
+          <div ng-show="">
+            Countdown: <span>{{countDownBreak | secondsToDateTime | date:'mm:ss'}}</span><br />
+            <button ng-click="startPomodoro(); playing=true;" class="btn btn-danger" ng-show="!playing">Start Break!</button>
+            <button ng-click="stopPomodoro(); playing=false;" class="btn btn-danger" ng-show="playing">Stop Break!</button>
+            <button ng-click="resetPomodoro()" class="btn btn-danger">Reset Break!</button>
+          </div>
         </div>
       </div>
   </div>
