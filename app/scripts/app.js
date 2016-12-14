@@ -44,7 +44,11 @@ app.controller('pomodoroCtrl', function($scope, $interval) {
       stop = $interval(function(){
         if ($scope.countDownLongBreak === 0){
           $scope.stopLongBreak();
-          $scope.onBreak = true;
+          //$scope.onBreak = true;
+          $scope.resetLongBreak();
+          $scope.hideStart = false;
+          $scope.workCounter = 0;
+          $scope.onBreak = false;
           } else {
           console.log($scope.countDownLongBreak--)
         }},1000);
