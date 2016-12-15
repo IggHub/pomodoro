@@ -1,21 +1,24 @@
-var app = angular.module('myPomodoro', []);
+var app = angular.module('myPomodoro', ["firebase"]);
 
-app.controller('pomodoroCtrl', function($scope, $interval) {
+app.controller('pomodoroCtrl', function($scope, $interval, $firebaseObject) {
+    /* scopes */
     $scope.countDownPomodoro = 5; // 1500s = 25 min
     $scope.countDownBreak = 3;
     $scope.countDownLongBreak = 10;
     $scope.workCounter = 0;
     $scope.hideStart = false;
+    $scope.bellTrigger = false;
 
+    /* variables */
     var pomodoroBell = new buzz.sound( "/assets/sounds/door-bell.mp3", {
       preload: true
     });
     var initializing = true;
     var onBreak = false; //initially onBreak will be false
     var playing = false;
-    $scope.bellTrigger = false;
     var stop;
 
+    /* methods */
     $scope.$watch('bellTrigger', function(newVal, oldVal) {
       if(newVal === oldVal) {
         return;
@@ -106,6 +109,14 @@ app.controller('pomodoroCtrl', function($scope, $interval) {
     $scope.resetLongBreak = function(){
       $scope.countDownLongBreak = 10;
       };
+
+/*    var ref = firebase.database().ref().child("data");
+    // download the data into a local object
+    var syncObject = $firebaseObject(ref);
+    // synchronize the object with a three-way data binding
+    // click on `index.html` above to see it used in the DOM!
+    syncObject.$bindTo($scope, "data");
+*/
 
     }).filter('secondsToDateTime', [function() {
       return function(seconds) {
