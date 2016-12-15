@@ -1,6 +1,8 @@
-var app = angular.module('myPomodoro', ["firebase"]);
+var app = angular.module('myPomodoro', ['firebase']);
 
-app.controller('pomodoroCtrl', function($scope, $interval, $firebaseObject) {
+app.controller('pomodoroCtrl', function($scope, $interval, $firebaseObject, $firebaseArray) {
+    console.log("pomodoro controller loaded");
+
     /* scopes */
     $scope.countDownPomodoro = 5; // 1500s = 25 min
     $scope.countDownBreak = 3;
@@ -117,6 +119,34 @@ app.controller('pomodoroCtrl', function($scope, $interval, $firebaseObject) {
     // click on `index.html` above to see it used in the DOM!
     syncObject.$bindTo($scope, "data");
 */
+
+    $scope.newList = []; //creates empty array
+    $scope.addItemToList = function(itemlist) { //new method addItemToList
+      console.log(itemlist); //checks itemList
+      $scope.newList.push({ // why .newList.push? What does push do? It adds the new object into the end of array newList (currently [])
+        "item": itemlist,
+        "done": false
+      });
+    };
+
+    $scope.sendToDb = function() {
+      var ref = new Firebase("https://xxxxxx.firebaseio.com");
+      var list = $firebaseArray(ref);
+      list.$add({
+        "list": $scope.newList
+      }).then(function(ref) {
+        var id = ref.key();
+        console.log("added record with id " + id);
+        console.log(list.$indexFor(id)); // returns location in the array
+      })
+
+
+    /* firebase array */
+    var ref = firebase.database().ref();//.child("data");
+    var list = $firebaseArray(ref);
+    $scope.addArray = function() {
+      list.$add({foo: "bar"})
+    }
 
     }).filter('secondsToDateTime', [function() {
       return function(seconds) {
