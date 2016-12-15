@@ -3,7 +3,7 @@ var app = angular.module('myPomodoro', ['firebase']);
 app.controller('pomodoroCtrl', function($scope, $interval, $firebaseObject, $firebaseArray) {
     console.log("pomodoro controller loaded");
 
-    /* scopes */
+    /* scopes; rename for clarity */
     $scope.countDownPomodoro = 5; // 1500s = 25 min
     $scope.countDownBreak = 3;
     $scope.countDownLongBreak = 10;
@@ -141,6 +141,7 @@ app.controller('pomodoroCtrl', function($scope, $interval, $firebaseObject, $fir
       })
 
 */
+
     /* firebase array */
 /*    var ref = firebase.database().ref();//.child("data");
     var list = $firebaseArray(ref);

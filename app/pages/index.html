@@ -17,10 +17,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
-    <!-- AngularFire -->
-    <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+    <!-- AngularFire needs to go after firebase and angular -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
 </head>
 
 <body ng-app="myPomodoro">
@@ -34,17 +33,12 @@
             Countdown pomo: <span>{{countDownPomodoro | secondsToDateTime | date:'mm:ss'}}</span><br />
             Countdown break: <span>{{countDownBreak | secondsToDateTime | date:'mm:ss'}}</span><br />
             Countdown long break: <span>{{countDownLongBreak | secondsToDateTime | date:'mm:ss'}}</span><br />
-<!--
-            <input type="text" ng-model="data.text" />
-            <p>Task: {{data.text}}</p>
-            <button ng-click="addArray();" class="btn btn-primary">Add Task</button>
-            <br />
--->
 
           <ul>
-            <li ng-repeat="task in tasks">
+            <li ng-repeat="task in tasks | orderBy: reverse:true">
             <!-- edit a message -->
-              <input ng-model="task.text" ng-change="tasks.$save(task)" />
+              <!--<input ng-model="task.text" ng-change="tasks.$save(task)" />-->
+              {{task.text}}
               <!-- delete a message -->
               <button ng-click="tasks.$remove(task)">Delete Message</button>
             </li>
