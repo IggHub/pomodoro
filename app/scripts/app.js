@@ -119,7 +119,7 @@ app.controller('pomodoroCtrl', function($scope, $interval, $firebaseObject, $fir
     // click on `index.html` above to see it used in the DOM!
     syncObject.$bindTo($scope, "data");
 */
-
+/*
     $scope.newList = []; //creates empty array
     $scope.addItemToList = function(itemlist) { //new method addItemToList
       console.log(itemlist); //checks itemList
@@ -140,13 +140,26 @@ app.controller('pomodoroCtrl', function($scope, $interval, $firebaseObject, $fir
         console.log(list.$indexFor(id)); // returns location in the array
       })
 
-
+*/
     /* firebase array */
-    var ref = firebase.database().ref();//.child("data");
+/*    var ref = firebase.database().ref();//.child("data");
     var list = $firebaseArray(ref);
     $scope.addArray = function() {
       list.$add({foo: "bar"})
     }
+*/
+
+    var ref = firebase.database().ref().child("tasks");
+    // create a synchronized array
+    $scope.tasks = $firebaseArray(ref);
+    // add new items to the array
+    // the message is automatically added to our Firebase database!
+    $scope.addTask = function() {
+      $scope.tasks.$add({
+        text: $scope.newTaskText
+      });
+    };
+
 
     }).filter('secondsToDateTime', [function() {
       return function(seconds) {

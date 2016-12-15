@@ -34,11 +34,26 @@
             Countdown pomo: <span>{{countDownPomodoro | secondsToDateTime | date:'mm:ss'}}</span><br />
             Countdown break: <span>{{countDownBreak | secondsToDateTime | date:'mm:ss'}}</span><br />
             Countdown long break: <span>{{countDownLongBreak | secondsToDateTime | date:'mm:ss'}}</span><br />
-
+<!--
             <input type="text" ng-model="data.text" />
             <p>Task: {{data.text}}</p>
             <button ng-click="addArray();" class="btn btn-primary">Add Task</button>
             <br />
+-->
+
+          <ul>
+            <li ng-repeat="task in tasks">
+            <!-- edit a message -->
+              <input ng-model="task.text" ng-change="tasks.$save(task)" />
+              <!-- delete a message -->
+              <button ng-click="tasks.$remove(task)">Delete Message</button>
+            </li>
+          </ul>
+
+          <form ng-submit="addTask()">
+            <input ng-model="newTaskText" />
+            <button type="submit">Add Task</button>
+          </form>
 
             <button ng-click="startPomodoro(); hideStart=true;" class="btn btn-danger" ng-show="!onBreak && !hideStart && workCounter !== 4">Start Pomodoro!</button>
             <button ng-click="stopPomodoro(); hideStart=false;" class="btn btn-danger" ng-show="!onBreak && hideStart && workCounter !== 4">Stop Pomodoro!</button>
