@@ -2,6 +2,11 @@ var app = angular.module('myPomodoro', ['firebase']);
 
 app.controller('pomodoroCtrl', function($scope, $interval, $firebaseObject, $firebaseArray) {
     console.log("pomodoro controller loaded");
+    //var firebaseRootRef = firebase.database().ref(); //points to root
+    //console.log(firebaseRootRef);
+    //$scope.roottasks = $firebaseArray(firebaseRootRef);
+    //console.log($scope.roottasks);
+    //$scope.roottasks.$remove();
 
     /* scopes; rename for clarity */
     $scope.countDownPomodoro = 5; // 1500s = 25 min
@@ -150,7 +155,8 @@ app.controller('pomodoroCtrl', function($scope, $interval, $firebaseObject, $fir
     }
 */
 
-    var ref = firebase.database().ref().child("tasks");
+    var ref = firebase.database().ref().child("tasks"); //points to child ('tasks') from root
+
     // create a synchronized array
     $scope.tasks = $firebaseArray(ref);
     // add new items to the array

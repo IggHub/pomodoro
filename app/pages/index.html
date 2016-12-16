@@ -2,71 +2,88 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Bloc Base Project</title>
+    <title>Pomodoro</title>
 
+    <link rel="stylesheet" type="text/css" href="styles/demo.css" />
+    <link rel="stylesheet" type="text/css" href="styles/set1.css" />
     <link rel="stylesheet" href="/styles/style.css">
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <!-- angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-    <!-- ui-router -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
-    <!-- AngularFire needs to go after firebase and angular -->
     <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
 </head>
 
-<body ng-app="myPomodoro">
+<body ng-app="myPomodoro" ng-controller = 'pomodoroCtrl'>
+  <section class="content bgcolor-5">
   <div class="container container-table">
       <div class="row vertical-center-row">
           <!-- app -->
-        <div ng-controller = 'pomodoroCtrl'>
+        <div>
 
           <div>
+            <div>
+
+              <span ng-repeat="task in tasks | orderBy: reverse:false" ng-if="$last">
+                <h1 style="color: #f5f5f5">{{task.text}}</h1>
+                <button ng-click="tasks.$remove(task)">Completed!</button>
+              </span>
+            </div>
+
             Work counter {{workCounter}} <br />
-            Countdown pomo: <span>{{countDownPomodoro | secondsToDateTime | date:'mm:ss'}}</span><br />
+            Countdown pomo: <span style="color: #f5f5f5">{{countDownPomodoro | secondsToDateTime | date:'mm:ss'}}</span><br />
             Countdown break: <span>{{countDownBreak | secondsToDateTime | date:'mm:ss'}}</span><br />
             Countdown long break: <span>{{countDownLongBreak | secondsToDateTime | date:'mm:ss'}}</span><br />
-
-          <ul>
-            <li ng-repeat="task in tasks | orderBy: reverse:true">
-            <!-- edit a message -->
-              <!--<input ng-model="task.text" ng-change="tasks.$save(task)" />-->
-              {{task.text}}
-              <!-- delete a message -->
-              <button ng-click="tasks.$remove(task)">Delete Message</button>
-            </li>
-          </ul>
-
-          <form ng-submit="addTask()">
-            <input ng-model="newTaskText" />
-            <button type="submit">Add Task</button>
-          </form>
 
             <button ng-click="startPomodoro(); hideStart=true;" class="btn btn-danger" ng-show="!onBreak && !hideStart && workCounter !== 4">Start Pomodoro!</button>
             <button ng-click="stopPomodoro(); hideStart=false;" class="btn btn-danger" ng-show="!onBreak && hideStart && workCounter !== 4">Stop Pomodoro!</button>
             <button ng-click="resetPomodoro()" class="btn btn-danger" ng-show="!onBreak && workCounter !== 4">Reset Pomodoro!</button>
-            <br />
 
             <button ng-click="startBreak(); hideStart=true;" class="btn btn-danger" ng-show="onBreak && !hideStart && workCounter !== 4">Start Break!</button>
             <button ng-click="stopBreak(); hideStart=false;" class="btn btn-danger" ng-show="onBreak && hideStart && workCounter !== 4">Stop Break!</button>
             <button ng-click="resetBreak()" class="btn btn-danger" ng-show="onBreak && workCounter !== 4">Reset Break!</button>
-            <br />
 
             <button ng-click="startLongBreak(); hideStart=true;" class="btn btn-danger" ng-show="workCounter == 4 && !hideStart">Start Long Break!</button> <!-- workCounter%4==0 && workCounter > 0 &&  -->
             <button ng-click="stopLongBreak(); hideStart=false;" class="btn btn-danger" ng-show="workCounter == 4 && hideStart">Stop Long Break!</button>
             <button ng-click="resetLongBreak()" class="btn btn-danger" ng-show="workCounter == 4">Reset Long Break!</button>
+            <br />
+
+            <span class="input input--minoru">
+              <form ng-submit="addTask()">
+                <input ng-model="newTaskText" class="input__field input__field--yoko" type="text" id="input-16" />
+                <label class="input__label input__label--yoko" for="input-16">
+                  <span class="input__label-content input__label-content--yoko">Task</span>
+                </label>
+                <input  type="submit" name="update" value=" Apply "
+                    style="position: absolute; height: 0px; width: 0px; border: none; padding: 0px;"
+                    hidefocus="true" tabindex="-1"/>
+              </form>
+            </span>
+
+
+
+
+          <br />
+          <h4>Other tasks:</h4>
+          <br />
+
+          <ul>
+            <li ng-repeat="task in tasks | orderBy: reverse:true" ng-if="$index>0">
+              {{task.text}}
+            </li>
+          </ul>
+
+          <br />
           </div>
 
         </div>
       </div>
   </div>
+
+    </section>
 
   <script>
     // Initialize Firebase
