@@ -173,3 +173,5 @@ app.controller('pomodoroCtrl', function($scope, $interval, $firebaseObject, $fir
           return new Date(1970, 0, 1).setSeconds(seconds);
       };
 }]);
+
+$('#pomodoro-title').addClass('animated wobble');
