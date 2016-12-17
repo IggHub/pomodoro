@@ -3,16 +3,12 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Pomodoro</title>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" type="text/css" href="styles/demo.css" />
     <link rel="stylesheet" type="text/css" href="styles/set1.css" />
     <link rel="stylesheet" href="/styles/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>-->
+    <link rel="stylesheet" type="text/css" href="styles/button.css" />
+    <script src="https://use.fontawesome.com/53000e17f3.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
     <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
@@ -26,28 +22,31 @@
   <section class="content bgcolor-5">
   <div class="container container-table">
       <div class="row vertical-center-row">
-          <!-- app -->
         <div>
-
           <div>
             <div>
               <span ng-repeat="task in tasks | orderBy: reverse:false" ng-if="$last">
-                <button id = "pomodoro-title" ng-click="tasks.$remove(task)">
+                <button id = "pomodoro-title" syle="color: black" ng-click="tasks.$remove(task)">
                   {{task.text}}
                 </button>
 
               </span>
             </div>
 
-            {{workCounter}} <br />
-            <span style="color: #f5f5f5" ng-show="!onBreak && workCounter !== 4">{{countDownPomodoro | secondsToDateTime | date:'mm:ss'}}</span>
-            <span style="color: #f5f5f5" ng-show="onBreak && workCounter !== 4">{{countDownBreak | secondsToDateTime | date:'mm:ss'}}</span>
-            <span style="color: #f5f5f5" ng-show="workCounter == 4">{{countDownLongBreak | secondsToDateTime | date:'mm:ss'}}</span>
-            <br />
+            <!--<span style="color: #b04b40;">{{workCounter}}</span>-->
+            <div id="timer-display">
+              <span style="color: #f5f5f5" ng-show="!onBreak && workCounter !== 4">{{countDownPomodoro | secondsToDateTime | date:'mm:ss'}}</span>
+              <span style="color: #f5f5f5" ng-show="onBreak && workCounter !== 4">{{countDownBreak | secondsToDateTime | date:'mm:ss'}}</span>
+              <span style="color: #f5f5f5" ng-show="workCounter == 4">{{countDownLongBreak | secondsToDateTime | date:'mm:ss'}}</span>
+            </div>
+            <!--buttons-->
+            <button class="button button-large button-plain button-border button-square"><i class="fa fa-play" aria-hidden="true"></i></button>
+            <button class="button button-large button-plain button-border button-square"><i class="fa fa-pause" aria-hidden="true"></i></button>
+            <button class="button button-large button-plain button-border button-square"><i class="fa fa-backward" aria-hidden="true"></i></button>
 
-            <button ng-click="startPomodoro(); hideStart=true;" class="btn btn-danger" ng-show="!onBreak && !hideStart && workCounter !== 4">Start Pomodoro!</button>
-            <button ng-click="stopPomodoro(); hideStart=false;" class="btn btn-danger" ng-show="!onBreak && hideStart && workCounter !== 4">Stop Pomodoro!</button>
-            <button ng-click="resetPomodoro()" class="btn btn-danger" ng-show="!onBreak && workCounter !== 4">Reset Pomodoro!</button>
+            <button ng-click="startPomodoro(); hideStart=true;" class="btn btn-info" ng-show="!onBreak && !hideStart && workCounter !== 4">Start Pomodoro!</button>
+            <button ng-click="stopPomodoro(); hideStart=false;" class="btn btn-info" ng-show="!onBreak && hideStart && workCounter !== 4">Stop Pomodoro!</button>
+            <button ng-click="resetPomodoro()" class="btn btn-info" ng-show="!onBreak && workCounter !== 4">Reset Pomodoro!</button>
 
             <button ng-click="startBreak(); hideStart=true;" class="btn btn-danger" ng-show="onBreak && !hideStart && workCounter !== 4">Start Break!</button>
             <button ng-click="stopBreak(); hideStart=false;" class="btn btn-danger" ng-show="onBreak && hideStart && workCounter !== 4">Stop Break!</button>
@@ -70,22 +69,15 @@
               </form>
             </span>
 
+            <div>
+              <ul>
+                <li style="color: #b04b40" ng-repeat="task in tasks | orderBy: reverse:true" ng-if="$index>0">
+                  {{task.text}}
+                </li>
+              </ul>
+            </div>
 
-
-
-          <br />
-          <h4>Other tasks:</h4>
-          <br />
-
-          <ul>
-            <li ng-repeat="task in tasks | orderBy: reverse:true" ng-if="$index>0">
-              {{task.text}}
-            </li>
-          </ul>
-
-          <br />
           </div>
-
         </div>
       </div>
   </div>
