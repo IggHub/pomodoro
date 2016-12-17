@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="styles/set1.css" />
     <link rel="stylesheet" href="/styles/style.css">
     <link rel="stylesheet" type="text/css" href="styles/button.css" />
+
     <script src="https://use.fontawesome.com/53000e17f3.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
@@ -24,50 +25,57 @@
       <div class="row vertical-center-row">
         <div>
           <div>
+
             <div>
               <span ng-repeat="task in tasks | orderBy: reverse:false" ng-if="$last">
                 <button id = "pomodoro-title" syle="color: black" ng-click="tasks.$remove(task)">
                   {{task.text}}
                 </button>
-
               </span>
             </div>
 
+            <div style="font-family: 'Gloria Hallelujah', cursive; font-style: italic; color: #b04b40;">Click above when done with task /\</div>
             <!--<span style="color: #b04b40;">{{workCounter}}</span>-->
+
             <div id="timer-display">
               <span style="color: #f5f5f5" ng-show="!onBreak && workCounter !== 4">{{countDownPomodoro | secondsToDateTime | date:'mm:ss'}}</span>
               <span style="color: #f5f5f5" ng-show="onBreak && workCounter !== 4">{{countDownBreak | secondsToDateTime | date:'mm:ss'}}</span>
               <span style="color: #f5f5f5" ng-show="workCounter == 4">{{countDownLongBreak | secondsToDateTime | date:'mm:ss'}}</span>
             </div>
-            <!--buttons-->
-            <button class="button button-large button-plain button-border button-square"><i class="fa fa-play" aria-hidden="true"></i></button>
-            <button class="button button-large button-plain button-border button-square"><i class="fa fa-pause" aria-hidden="true"></i></button>
-            <button class="button button-large button-plain button-border button-square"><i class="fa fa-backward" aria-hidden="true"></i></button>
 
-            <button ng-click="startPomodoro(); hideStart=true;" class="btn btn-info" ng-show="!onBreak && !hideStart && workCounter !== 4">Start Pomodoro!</button>
-            <button ng-click="stopPomodoro(); hideStart=false;" class="btn btn-info" ng-show="!onBreak && hideStart && workCounter !== 4">Stop Pomodoro!</button>
-            <button ng-click="resetPomodoro()" class="btn btn-info" ng-show="!onBreak && workCounter !== 4">Reset Pomodoro!</button>
+            <div id="time-indicator">
+              <span ng-show="!onBreak && workCounter !== 4">Pomodoro time</span>
+              <span ng-show="onBreak && workCounter !== 4">Break time</span>
+              <span ng-show="workCounter == 4">Long break time</span>
+            </div>
 
-            <button ng-click="startBreak(); hideStart=true;" class="btn btn-danger" ng-show="onBreak && !hideStart && workCounter !== 4">Start Break!</button>
-            <button ng-click="stopBreak(); hideStart=false;" class="btn btn-danger" ng-show="onBreak && hideStart && workCounter !== 4">Stop Break!</button>
-            <button ng-click="resetBreak()" class="btn btn-danger" ng-show="onBreak && workCounter !== 4">Reset Break!</button>
+            <div>
+              <button ng-click="startPomodoro(); hideStart=true;" class="button button-large button-plain button-border button-square" ng-show="!onBreak && !hideStart && workCounter !== 4"><i class="fa fa-play" aria-hidden="true"></i></button>
+              <button ng-click="stopPomodoro(); hideStart=false;" class="button button-large button-plain button-border button-square" ng-show="!onBreak && hideStart && workCounter !== 4"><i class="fa fa-pause" aria-hidden="true"></i></button>
+              <button ng-click="resetPomodoro()" class="button button-large button-plain button-border button-square" ng-show="!onBreak && workCounter !== 4"><i class="fa fa-clock-o" aria-hidden="true"></i></button>
 
-            <button ng-click="startLongBreak(); hideStart=true;" class="btn btn-danger" ng-show="workCounter == 4 && !hideStart">Start Long Break!</button> <!-- workCounter%4==0 && workCounter > 0 &&  -->
-            <button ng-click="stopLongBreak(); hideStart=false;" class="btn btn-danger" ng-show="workCounter == 4 && hideStart">Stop Long Break!</button>
-            <button ng-click="resetLongBreak()" class="btn btn-danger" ng-show="workCounter == 4">Reset Long Break!</button>
-            <br />
+              <button ng-click="startBreak(); hideStart=true;" class="button button-large button-plain button-border button-square" ng-show="onBreak && !hideStart && workCounter !== 4"><i class="fa fa-play" aria-hidden="true"></i></button>
+              <button ng-click="stopBreak(); hideStart=false;" class="button button-large button-plain button-border button-square" ng-show="onBreak && hideStart && workCounter !== 4"><i class="fa fa-pause" aria-hidden="true"></i></button>
+              <button ng-click="resetBreak()" class="button button-large button-plain button-border button-square" ng-show="onBreak && workCounter !== 4"><i class="fa fa-clock-o" aria-hidden="true"></i></button>
 
-            <span class="input input--minoru">
-              <form ng-submit="addTask()">
-                <input ng-model="newTaskText" class="input__field input__field--yoko" type="text" id="input-16" />
-                <label class="input__label input__label--yoko" for="input-16">
-                  <span class="input__label-content input__label-content--yoko">Task</span>
-                </label>
-                <input  type="submit" name="update" value=" Apply "
-                    style="position: absolute; height: 0px; width: 0px; border: none; padding: 0px;"
-                    hidefocus="true" tabindex="-1"/>
-              </form>
-            </span>
+              <button ng-click="startLongBreak(); hideStart=true;" class="button button-large button-plain button-border button-square" ng-show="workCounter == 4 && !hideStart"><i class="fa fa-play" aria-hidden="true"></i></button> <!-- workCounter%4==0 && workCounter > 0 &&  -->
+              <button ng-click="stopLongBreak(); hideStart=false;" class="button button-large button-plain button-border button-square" ng-show="workCounter == 4 && hideStart"><i class="fa fa-pause" aria-hidden="true"></i></button>
+              <button ng-click="resetLongBreak()" class="button button-large button-plain button-border button-square" ng-show="workCounter == 4"><i class="fa fa-clock-o" aria-hidden="true"></i></button>
+            </div>
+
+            <div>
+              <span class="input input--minoru">
+                <form ng-submit="addTask()">
+                  <input ng-model="newTaskText" maxlength="16" class="input__field input__field--yoko" type="text" id="input-16" />
+                  <label class="input__label input__label--yoko" for="input-16">
+                    <span class="input__label-content input__label-content--yoko">Task</span>
+                  </label>
+                  <input  type="submit" name="update" value=" Apply "
+                      style="position: absolute; height: 0px; width: 0px; border: none; padding: 0px;"
+                      hidefocus="true" tabindex="-1"/>
+                </form>
+              </span>
+            </div>
 
             <div>
               <ul>
@@ -76,13 +84,13 @@
                 </li>
               </ul>
             </div>
-
           </div>
         </div>
       </div>
   </div>
-
-    </section>
+  <footer class="footer"><!--For inquiries, email me at dot com--></footer>
+  </section>
+  
 
   <script>
     // Initialize Firebase
