@@ -9,9 +9,9 @@ app.controller('pomodoroCtrl', function($scope, $interval, $firebaseObject, $fir
     //$scope.roottasks.$remove();
 
     /* scopes; rename for clarity */
-    $scope.countDownPomodoro = 5; // 1500s = 25 min
-    $scope.countDownBreak = 3;
-    $scope.countDownLongBreak = 10;
+    $scope.countDownPomodoro = 1500; // 1500s = 25 min
+    $scope.countDownBreak = 300;
+    $scope.countDownLongBreak = 1800;
     $scope.workCounter = 0;
     $scope.hideStart = false;
     $scope.bellTrigger = false;
@@ -106,15 +106,15 @@ app.controller('pomodoroCtrl', function($scope, $interval, $firebaseObject, $fir
       };
 
     $scope.resetPomodoro = function(){
-      $scope.countDownPomodoro = 5;
+      $scope.countDownPomodoro = 1500;
       };
 
     $scope.resetBreak = function(){
-      $scope.countDownBreak = 3;
+      $scope.countDownBreak = 300;
       };
 
     $scope.resetLongBreak = function(){
-      $scope.countDownLongBreak = 10;
+      $scope.countDownLongBreak = 1800;
       };
 
 /*    var ref = firebase.database().ref().child("data");
