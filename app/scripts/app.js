@@ -165,6 +165,8 @@ app.controller('pomodoroCtrl', function($scope, $interval, $firebaseObject, $fir
       $scope.tasks.$add({
         text: $scope.newTaskText
       });
+      var form = document.getElementById("input-16");
+      form.value = '';
     };
 
 

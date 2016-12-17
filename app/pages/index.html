@@ -37,7 +37,7 @@
             <div style="font-family: 'Gloria Hallelujah', cursive; font-style: italic; color: #b04b40;">Click above when done with task /\</div>
             <!--<span style="color: #b04b40;">{{workCounter}}</span>-->
 
-            <div id="timer-display">
+            <div class="timer-display">
               <span style="color: #f5f5f5" ng-show="!onBreak && workCounter !== 4">{{countDownPomodoro | secondsToDateTime | date:'mm:ss'}}</span>
               <span style="color: #f5f5f5" ng-show="onBreak && workCounter !== 4">{{countDownBreak | secondsToDateTime | date:'mm:ss'}}</span>
               <span style="color: #f5f5f5" ng-show="workCounter == 4">{{countDownLongBreak | secondsToDateTime | date:'mm:ss'}}</span>
@@ -90,7 +90,7 @@
   </div>
   <footer class="footer"><!--For inquiries, email me at dot com--></footer>
   </section>
-  
+
 
   <script>
     // Initialize Firebase

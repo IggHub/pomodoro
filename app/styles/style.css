@@ -31,7 +31,7 @@ body {
     font-size: 56px;
 }
 
-#timer-display {
+.timer-display {
   font-size: 125px;
 }
 
